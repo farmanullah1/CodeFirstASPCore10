@@ -1,7 +1,8 @@
-using System.Diagnostics;
 using CodeFirstASPCore10.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace CodeFirstASPCore10.Controllers
 {
@@ -21,6 +22,13 @@ namespace CodeFirstASPCore10.Controllers
         }
         public IActionResult Create()
         {
+            List<SelectListItem> Gender = new()
+            {
+                new SelectListItem{Value = "Male" ,Text =  "Male"},
+                new SelectListItem{Value = "Female" ,Text =  "Female"},
+                new SelectListItem{Value = "Other" ,Text =  "Other"},
+            };
+            ViewBag.Gender = Gender;
             return View();
         }
         [HttpPost]
@@ -63,6 +71,12 @@ namespace CodeFirstASPCore10.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Gender = new List<SelectListItem>
+            {
+                new SelectListItem{Value = "Male" ,Text = "Male"},
+                new SelectListItem{Value = "Female" ,Text = "Female"},
+                new SelectListItem{Value = "Other" ,Text = "Other"},
+            };
 
             return View(stdData); // You MUST pass stdData here to fill the form
         }
